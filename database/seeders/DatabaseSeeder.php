@@ -40,6 +40,7 @@ public function run(): void
         UserGroupSeeder::class,
         PasswordPolicySeeder::class,
         SubscriptionSeeder::class,
+        EntityStatusSeeder::class,
     ]);
 }
 }

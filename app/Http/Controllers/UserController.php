@@ -16,11 +16,19 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+    // public function create()
+    // {
+    //     $groups = UserGroup::all();
+    //     return view('users.create', compact('groups'));
+    // }
     public function create()
-    {
-        $groups = UserGroup::all();
-        return view('users.create', compact('groups'));
-    }
+{
+    // Fetch only active user groups
+    $groups = UserGroup::where('entity_status_id', '=', 1) // Assuming 1 is the ID for active status
+        ->get();
+    return view('users.create', compact('groups'));
+}
+
 
     public function store(Request $request)
     {
@@ -31,6 +39,9 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'user_group_id' => 'required',
             'password' => 'required|min:6',
+            'status' => 'required',
+
+
         ]);
 
         $data['password'] = Hash::make($data['password']);
@@ -39,11 +50,19 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created.');
     }
 
+    // public function edit(User $user)
+    // {
+    //     $groups = UserGroup::all();
+    //     return view('users.edit', compact('user', 'groups'));
+    // }
     public function edit(User $user)
-    {
-        $groups = UserGroup::all();
-        return view('users.edit', compact('user', 'groups'));
-    }
+{
+    // Fetch only active user groups
+    $groups = UserGroup::where('entity_status_id', '=', 1) // Assuming 1 is the ID for active status
+        ->get();
+    return view('users.edit', compact('user', 'groups'));
+}
+
 
     public function update(Request $request, User $user)
     {
@@ -53,6 +72,7 @@ class UserController extends Controller
             'email' => "required|email|unique:users,email,{$user->id}",
             'user_group_id' => 'required',
             'password' => 'nullable|min:6',
+            'status'=> 'required',
         ]);
 
         if ($request->filled('password')) {

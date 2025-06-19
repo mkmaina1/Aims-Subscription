@@ -33,6 +33,14 @@
           <input type="password" name="password" class="form-control" required>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select name="status" class="form-select" required>
+            <option value="Y" selected>Active</option>
+            <option value="N">Inactive</option>
+          </select>
+        </div>
+
         <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Save</button>
       </form>
     </div>

@@ -35,6 +35,14 @@
           <input type="password" name="password" class="form-control">
         </div>
 
+         <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select name="status" class="form-select" required>
+            <option value="Y" selected>Active</option>
+            <option value="N">Inactive</option>
+          </select>
+        </div>
+
         <button type="submit" class="btn btn-warning"><i class="fas fa-sync me-1"></i> Update</button>
       </form>
     </div>

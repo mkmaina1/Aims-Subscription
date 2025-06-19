@@ -70,7 +70,7 @@
       <a class="navbar-brand" href="#">Aims Subscription</a>
       <div>
         <a href="{{ route('login') }}" class="btn btn-outline-dark me-2">Login</a>
-        <a href="{{ route('register') }}" class="btn btn-primary">Get Started</a>
+        <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
       </div>
     </div>
   </nav>

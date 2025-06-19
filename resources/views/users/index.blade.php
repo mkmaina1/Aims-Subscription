@@ -26,8 +26,15 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->userGroup ? $user->userGroup->name : 'N/A' }}</td>  <!-- Changed this line -->
             <td>
-              <span class="badge bg-success">Active</span>
+              @if ($user->status === 'Y')
+                <span class="badge bg-success">Active</span>
+              @else
+                <span class="badge bg-secondary">Inactive</span>
+              @endif
             </td>
+            {{-- <td>
+              <span class="badge bg-success">Active</span>
+            </td> --}}
             <td>
               <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
               <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">

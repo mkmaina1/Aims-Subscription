@@ -18,14 +18,17 @@
         </div>
 
         <div class="mb-3">
-          <label for="slug" class="form-label">Slug</label>
-          <input type="text" name="slug" class="form-control" required>
+            <label for="permission_group" class="form-label">Role</label>
+            <select name="permission_group" class="form-control" required>
+                <option value="">Select Role</option>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->name }}" {{ isset($permission) && $permission->permission_group == $role->name ? 'selected' : '' }}>
+                        {{ $role->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
-        <div class="mb-3">
-          <label for="permission_group" class="form-label">Permission Group</label>
-          <input type="text" name="permission_group" class="form-control" required>
-        </div>
 
         <button type="submit" class="btn btn-danger"><i class="fas fa-save me-1"></i> Save</button>
       </form>

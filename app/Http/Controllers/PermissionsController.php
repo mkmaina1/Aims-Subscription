@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permissions;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class PermissionsController extends Controller
@@ -15,46 +16,65 @@ class PermissionsController extends Controller
 
     public function create()
     {
-        return view('permissions.create');
+        $roles = Role::select('name')->get();
+        return view('permissions.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:permissions',
             'permission_group' => 'required|string|max:255',
         ]);
 
-        Permissions::create($request->all());
+        try {
+            Permissions::create([
+                'name' => $request->name,
+                'permission_group' => $request->permission_group,
+            ]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission created successfully.');
+            return redirect()->route('permissions.index')->with('success', 'Permission created successfully.');
+        } catch (\Exception $e) {
+            // dd($e);
+            return redirect()->back()->withErrors(['error' => 'Failed to create permission. Please try again.']);
+        }
     }
+
 
     public function edit(Permissions $permission)
     {
-        return view('permissions.edit', compact('permission'));
+        $roles = Role::select('name')->get();
+        return view('permissions.edit', compact('permission', 'roles'));
     }
 
     public function update(Request $request, Permissions $permission)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:permissions,slug,' . $permission->id,
             'permission_group' => 'required|string|max:255',
         ]);
 
-        $permission->update($request->all());
+        try {
+            $permission->update([
+                'name' => $request->name,
+                'permission_group' => $request->permission_group,
+            ]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission updated successfully.');
+            return redirect()->route('permissions.index')->with('success', 'Permission updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Failed to update permission. Please try again.']);
+        }
     }
 
 
-    public function destroy(Permissions $permissions)
+
+    public function destroy(Permissions $permission)
     {
-        $permissions->delete();
+        // dd($request->all());
+        $permission->delete();
 
         return redirect()->route('permissions.index')->with('success', 'Permission deleted.');
     }
 }
+
+

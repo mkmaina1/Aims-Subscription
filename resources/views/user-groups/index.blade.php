@@ -10,6 +10,7 @@
             <thead><tr><th>Name</th>
             <th>slug</th>
             <th>permission</th>
+            <th>entitystatus</th>
             <th>Actions</th></tr></thead>
             <tbody>
                 @foreach($groups as $group)
@@ -17,6 +18,7 @@
                     <td>{{ $group->name }}</td>
                     <td>{{ $group->slug }}</td>
                     <td>{{ $group->permission }}</td>
+                    <td>{{ $group->entityStatuses }}</td>
                     <td>
                         <a href="{{ route('user-groups.edit', $group) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('user-groups.destroy', $group) }}" method="POST" class="d-inline">

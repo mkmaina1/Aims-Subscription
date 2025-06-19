@@ -21,7 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'user_group_id', // Make sure this is present!
-        'role', // ✅ Add this line
+        'role',
+        'status', // ✅ Add this line
     ];
 
     /**

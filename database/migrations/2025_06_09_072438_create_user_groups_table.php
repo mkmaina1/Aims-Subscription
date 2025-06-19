@@ -4,26 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateUser GroupsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-       // database/migrations/xxxx_create_user_groups_table.php
-Schema::create('user_groups', function (Blueprint $table) {
-    $table->id();
-    $table->string('name')->unique();
-    $table->timestamps();
-});
+        Schema::create('user_groups', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->unsignedBigInteger('entity_status_id'); // Ensure this matches the type in entity_statuses
+            $table->timestamps();
 
+            // Foreign key constraint
+            $table->foreign('entity_status_id')->references('id')->on('entity_statuses')->onDelete('cascade');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('user_groups');
     }
