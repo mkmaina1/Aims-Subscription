@@ -18,16 +18,27 @@
         </div>
 
        <div class="mb-3">
-            <label for="permission_group" class="form-label">Role</label>
+            <label for="permission_group" class="form-label">UserGroup</label>
             <select name="permission_group" class="form-control" required>
-                <option value="">Select Role</option>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->name }}" {{ isset($permission) && $permission->permission_group == $role->name ? 'selected' : '' }}>
-                        {{ $role->name }}
+                <option value="">Select</option>
+                @foreach ($groups as $group)
+                    <option value="{{ $group->name }}" {{ isset($permission) && $permission->permission_group == $group->name ? 'selected' : '' }}>
+                        {{ $group->name }}
                     </option>
                 @endforeach
             </select>
         </div>
+         {{-- <div class="mb-3">
+          <label class="form-label">User Group</label>
+          <select name="user_group_id" class="form-select">
+            @foreach ($groups as $group)
+              {{-- <option value="{{ $group->id }}" {{ $user->user_group_id == $group->id ? 'selected' : '' }}> --}}
+              {{-- <option value="{{ $group->id }}" {{ isset($permission) && $permission->permission_group == $group->id ? 'selected' : '' }}>
+                {{ $group->name }}
+              </option>
+            @endforeach
+          </select>
+        </div> --}} 
 
         {{-- <form action="{{ route('permissions.update', $permission->id) }}" method="POST">
     @csrf

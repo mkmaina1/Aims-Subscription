@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permissions;
-use App\Models\Role;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 
 class PermissionsController extends Controller
@@ -16,8 +16,8 @@ class PermissionsController extends Controller
 
     public function create()
     {
-        $roles = Role::select('name')->get();
-        return view('permissions.create', compact('roles'));
+        $groups = UserGroup::select('name')->get();
+        return view('permissions.create', compact('groups'));
     }
 
     public function store(Request $request)
@@ -43,8 +43,8 @@ class PermissionsController extends Controller
 
     public function edit(Permissions $permission)
     {
-        $roles = Role::select('name')->get();
-        return view('permissions.edit', compact('permission', 'roles'));
+        $groups = Usergroup::select('name')->get();
+        return view('permissions.edit', compact('permission', 'groups'));
     }
 
     public function update(Request $request, Permissions $permission)
